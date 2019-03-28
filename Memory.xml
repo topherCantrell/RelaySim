@@ -1,0 +1,81 @@
+
+<network>
+
+  <use network="d_flipflop" id="dffb0"/>
+  <use network="d_flipflop" id="dffb1"/>
+  <use network="d_flipflop" id="dffb2"/>
+  <use network="d_flipflop" id="dffb3"/>
+  <use network="d_flipflop" id="dffb4"/>
+  <use network="d_flipflop" id="dffb5"/>
+  <use network="d_flipflop" id="dffb6"/>
+  <use network="d_flipflop" id="dffb7"/>
+  
+  <Probe id="bus0"/>
+  <Probe id="bus1"/>
+  <Probe id="bus2"/>
+  <Probe id="bus3"/>
+  <Probe id="bus4"/>
+  <Probe id="bus5"/>
+  <Probe id="bus6"/>
+  <Probe id="bus7"/>
+
+  <Switch id="inp0"/>
+  <Switch id="inp1"/>
+  <Switch id="inp2"/>
+  <Switch id="inp3"/>
+  <Switch id="inp4"/>
+  <Switch id="inp5"/>
+  <Switch id="inp6"/>
+  <Switch id="inp7"/>
+
+  <Switch id="latchStorage"/>
+  <Switch id="enableInput"/>
+  <Switch id="enableStorage"/>
+
+
+  <Relay swiches="1" id="inp0en"/>
+  <Relay swiches="1" id="inp1en"/>
+  <Relay swiches="1" id="inp2en"/>
+  <Relay swiches="1" id="inp3en"/>
+  <Relay swiches="1" id="inp4en"/>
+  <Relay swiches="1" id="inp5en"/>
+  <Relay swiches="1" id="inp6en"/>
+  <Relay swiches="1" id="inp7en"/>
+
+  <wire
+  
+
+  <network id="d_flipflop">
+    <use network="sr_flipflop" id="sr"/>
+    <Relay switches="1" id="c_in"/>
+    <Relay switches="1" id="d_in"/>
+    <Relay switches="1" id="enable"/>
+
+    <wire a="c_in.s0_no" b="POWER"/>
+    <wire a="c_in.s0_co" b="d_in.s0_co"/>
+    <wire a="d_in.s0_nc" b="sr.R"/>
+    <wire a="d_in.s0_no" b="sr.S"/>
+    <wire a="enable.s0_no" b="sr.Q"/>
+
+    <pad name="C" is="c_in.ca"/>
+    <pad name="D" is="d_in.ca"/>
+    <pad name="Q" is="enable.s0_co"/>
+    <pad name="OE" is="enable.ca"/>
+  </network>
+
+  <network id="sr_flipflop">
+    <Relay switches="1" id="hold"/>
+    <Relay switches="1" id="break"/>
+    <pad name="R" is="break.ca"/>
+    <pad name="S" is="hold.s0_co"/>
+    <pad name="Q" is="hold.s0_co"/>
+    <wire a="break.s0_nc" b="hold.ca"/>
+    <wire a="break.s0_co" b="hold.s0_co"/>
+    <wire a="hold.s0_no" b="POWER"/>
+  </network>
+
+</network>
+
+
+
+

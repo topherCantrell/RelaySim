@@ -1,0 +1,47 @@
+<network>
+
+  <use network="or_gate" id="gate"/>
+
+  <Switch id="A_input" closed="true"/>
+  <Switch id="B_input" closed="false"/>
+  <Probe id="value"/>
+
+  <wire a="A_input" b="gate.A_in"/>
+  <wire a="B_input" b="gate.B_in"/>
+  <wire a="gate.C" b="value"/>
+  
+  <network id="nor_gate">
+
+    <pad name="A_in" is="or.A_in"/>
+    <pad name="B_in" is="or.B_in"/>
+    <pad name="C" is="not.s0_co"/>
+
+    <use network="or_gate" id="or"/>
+    <Relay switches="1" id="not"/>
+    <wire a="not.cb" b="GROUND"/>
+    <wire a="not.s0_nc" b="POWER"/>
+    <wire a="or.C" b="not.ca"/>        
+
+  </network>
+
+  <network id="or_gate">  
+    
+    <pad name="A_in" is="A.ca"/>
+    <pad name="B_in" is="B.ca"/>
+    <pad name="C"    is="B.s0_co"/>
+    
+    <Relay switches="1" id="A"/>
+    <Relay switches="1" id="B"/>
+
+    <wire a="A.s0_co" b="B.s0_co"/>
+    <wire a="POWER" b="A.s0_no"/>
+    <wire a="POWER" b="B.s0_no"/>
+
+    <wire a="GROUND" b="A.cb"/>
+    <wire a="GROUND" b="B.cb"/>       
+   
+  </network>
+
+</network>
+
+
