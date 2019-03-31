@@ -1,0 +1,45 @@
+;
+;
+; Comments begin with a semicolon {comment color}
+
+include test.asm  ; A file include {include color + bold}
+
+; defines are direct substitutions
+;
+define CPU = Z80      ; Special define for the CPU type {define color + bold}
+define VAL = 0x44_55  ; 0x and 0b for hex and binary. Underscores are ignored {define color}
+
+address MYSPOT = 0xF000  byte ; Define a memory address explicitly and set its size (byte is the default) {address color + bold}
+address ANOTHER = * byte      ; Define a memory address that is immediately after the last     {address color}
+address AGAIN = * word        ; Can be "byte", "word", or a #number (size in bytes) like "#32" {address color}
+
+
+address TMP0 = >0x00 byte     ; The ">" means a base/zero page 8-bit address. The ">" is inherited by next. {address color + italics}
+
+0xD000:      ; A numeric label is an origin {label color + bold}
+start:       ; {label color}
+
+; Some assembly sets (6809) assume that numeric constants are memory addresses. 
+; You must append a hash to make an immediate:
+   LDA  #42     ; The hash means an immediate constant {number + hash in define color} 
+   LDA  $100    ; Read from memory location $100 {number in address color}
+   
+; Some assembly sets (Z80) assume that numeric constants are immediate values. 
+; You must use parenthesis to make memory read:
+  LD   A,42     ; Plain value is a constant {number in define color}
+  LD   A,($100) ; Read from memory location $100 {address plus parens in address color)
+  
+; With these "native" mnemonics you must use the correct notation even with symbols:
+  LDA  #MYVALUE     ; {number + hash in define color}
+  LDA  MYSPOT       ; {address in address color}
+  LD   A,MYVALUE    ; {number in define color}
+  LD   A,(MYSPOT)   ; {address + parens in address color}
+  
+; 8-bit addresses
+
+; cIsh
+
+
+
+
+    
